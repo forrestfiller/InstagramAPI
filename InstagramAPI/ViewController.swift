@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
     var instaTable: UITableView!
-    //var instaList: Array<User>()
+    var instaList = Array<User>()
     var searchField: UITextField!
     
     override func loadView() {
@@ -33,6 +34,32 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         self.view = view
         
     }
+    
+    func instaRequest(user: String){
+        //print("instaRequest: ")
+        
+        //let url = "https://www.instagram.com/juicecrawl/media/"
+        let url = "https://www.instagram.com/\(user)/media/"
+        
+        Alamofire.request(.GET, url, parameters: nil).responseJSON { response in
+        
+            if let json = response.result.value as? Dictionary<String, AnyObject>{
+                //print("instaRequest: \(json)")
+                
+                if let items = json["items"] as? Array<Dictionary<String, AnyObject>>{
+                    print("instaRequest: \(items)")
+                    
+                    for instaInfo in items {
+                        let instaData = User()
+                        instaData.populate(instaInfo)
+                        self.instaList.append(instaData)
+                    }
+                    self.instaTable.reloadData()
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,24 +70,30 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return 20
-        //return self.instaList.count
+        return self.instaList.count
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let user = self.instaList[indexPath.row]
+        
         let cellId = "cellId"
         if let cell = tableView.dequeueReusableCellWithIdentifier(cellId) {
-            cell.textLabel?.text = ("\(indexPath.row)")
+            cell.textLabel?.text = user.text
             return cell
         }
         let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
-        cell.textLabel?.text = ("\(indexPath.row)")
+        cell.textLabel?.text = user.text
         return cell
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         let searchText = self.searchField.text!
-        print("textFieldShouldReturn: ")
+        //print("textFieldShouldReturn: ")
+        self.instaRequest(searchText)
+        self.instaList.removeAll()
+        
         return true
     }
 

@@ -96,6 +96,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         
         return true
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let user = self.instaList[indexPath.row]
+        let instaVc = InstaViewController()
+        instaVc.user = user
+        self.navigationController?.pushViewController(instaVc, animated: true)
+    }
 
 }
 

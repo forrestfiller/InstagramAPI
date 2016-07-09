@@ -99,11 +99,15 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: true)
+        //animate the cells to deselect after each click
+        
         let user = self.instaList[indexPath.row]
         let instaVc = InstaViewController()
         instaVc.user = user
         self.navigationController?.pushViewController(instaVc, animated: true)
     }
+
 
 }
 

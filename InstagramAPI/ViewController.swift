@@ -9,6 +9,16 @@
 import UIKit
 import Alamofire
 
+//extension UIColor {
+//    convenience init(red: Int, green: Int, blue: Int) {
+//        let newRed = CGFloat(red)/255
+//        let newGreen = CGFloat(green)/255
+//        let newBlue = CGFloat(blue)/255
+//        
+//        self.init(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
+//    }
+//}
+
 class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
     var instaTable: UITableView!
@@ -19,6 +29,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UITableViewDataSour
         let frame = UIScreen.mainScreen().bounds
         let view = UIView(frame: frame)
         view.backgroundColor = .whiteColor()
+//        let newLightColor = UIColor(red: 229, green: 245, blue:249)
+//        let newDarkColor = UIColor(red: 153, green: 216, blue: 201)
         
         self.searchField = UITextField(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 44))
         self.searchField.delegate = self

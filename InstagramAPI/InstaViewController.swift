@@ -18,12 +18,12 @@ class InstaViewController: UIViewController {
         print("loadView: ")
         let frame = UIScreen.mainScreen().bounds
         let view = UIView(frame: frame)
-        view.backgroundColor = .redColor()
+        view.backgroundColor = .whiteColor()
         let font = UIFont(name: "Arial", size: 16)
         let str = NSString(string: self.user.text)
         let bounds = str.boundingRectWithSize(CGSizeMake(frame.size.width-40, 1200), options: .UsesLineFragmentOrigin, attributes: [NSFontAttributeName:font!], context: nil)
         self.userLabel = UILabel(frame: CGRect(x: 20, y: 84, width: frame.size.width-40, height: bounds.size.height))
-        userLabel.backgroundColor = .blueColor()
+        userLabel.backgroundColor = .clearColor()
         userLabel.numberOfLines = 0
         userLabel.lineBreakMode = .ByWordWrapping
         userLabel.font = font
